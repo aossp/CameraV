@@ -137,6 +137,11 @@
             android:name="org.witness.informacam.crypto.SignatureService"
             android:enabled="true"
             android:exported="false" />
+        
+        
+		<!-- for server certificate verification gui: -->
+		<activity android:name="de.duenndns.ssl.MemorizingActivity" />
+	
     </application>
 
 </manifest>
