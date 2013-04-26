@@ -1,6 +1,9 @@
 package org.witness.iwitness.app;
 
 import org.witness.informacam.InformaCam;
+
+import net.hockeyapp.android.CrashManager;
+import net.hockeyapp.android.UpdateManager;
 import org.witness.iwitness.R;
 import org.witness.iwitness.utils.Constants;
 
@@ -25,6 +28,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	Handler h = new Handler();
 
 	InformaCam informaCam = InformaCam.getInstance();
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		commit.setOnClickListener(this);
 
 		waiter = (ProgressBar) findViewById(R.id.login_waiter);
+		
 	}
 
 	@Override
@@ -99,4 +104,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 		}
 
 	}
+	
+	
 }

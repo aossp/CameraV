@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.witness.iwitness"
     android:installLocation="preferExternal"
-    android:versionCode="1"
-    android:versionName="beta1-build1" >
+    android:versionCode="3"
+    android:versionName="v1.0.0-beta1-build3" >
 
     <uses-sdk
         android:minSdkVersion="10"
@@ -146,6 +146,9 @@
             android:name="org.witness.informacam.utils.BackgroundProcessor"
             android:enabled="true"
             android:exported="false" />
+
+	<activity android:name="net.hockeyapp.android.UpdateActivity" />
+
     </application>
 
 </manifest>
