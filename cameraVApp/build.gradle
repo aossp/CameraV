@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "org.witness.informacam.app"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 21
         multiDexEnabled true
 

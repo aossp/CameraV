@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringBufferInputStream;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -326,7 +327,7 @@ public class InformaCam extends MultiDexApplication {
 		sendBroadcast(intent);
 	}
 	
-	public void initData() throws PGPException, IllegalAccessException, InstantiationException, IOException {
+	public void initData() throws PGPException, IllegalAccessException, InstantiationException, IOException, GeneralSecurityException {
 
 		try {
 			ISecretKey sKey = (ISecretKey) getModel(new ISecretKey());
