@@ -232,8 +232,7 @@ OnRangeSeekBarChangeListener<Integer> {
 
 		videoView = (MjpegView) mediaHolder_.findViewById(R.id.video_view);
 		videoView.setDisplayMode(MjpegView.SIZE_BEST_FIT);
-	        //mv.showFps(false);
-		videoView.setFrameDelay(1); //we need to better sync each frame to the audio
+		videoView.setFrameDelay(50); //we need to better sync each frame to the audio
 
 	//	LayoutParams vv_lp = videoView.getLayoutParams();
 //		vv_lp.width = dims[0];
