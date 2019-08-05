@@ -45,7 +45,7 @@ public class InformaActivity extends Activity implements InformaCamStatusListene
 	InformaCam informaCam;
 	private Handler mHandler;
 	
-	private final static String LOG = "InformaApp";
+	private final static String LOG = "CameraV";
 
 	public final static String HOCKEY_APP_ID = "dafbc649fcf585d7867866d5375b6495";
 

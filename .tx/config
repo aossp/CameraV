@@ -9,3 +9,8 @@ source_file = app/res/values/strings.xml
 source_lang = en
 type = ANDROID
 
+[camerav.description]
+file_filter = description/<lang>.xlf
+host = https://www.transifex.com
+source_file = description/source.xlf
+source_lang = en

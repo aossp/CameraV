@@ -1,4 +1,4 @@
-InformaApp
+CameraV
 =========
 
 An InformaCam app to generate verifiable media.
@@ -6,7 +6,7 @@ An InformaCam app to generate verifiable media.
 Building
 --------
 
-git clone https://github.com/guardianproject/InformaApp
+git clone https://github.com/guardianproject/CameraV
 
 cd InformaApp/
 
@@ -23,7 +23,7 @@ ant clean debug
 =======
 # InformaCam
 
-This is information for building the primary submodule for InformaApp, the InformaCam Core Library, located at external/InformCam
+This is information for building the primary submodule for CameraV, the InformaCam Core Library, located at external/InformCam
 
 ## Setting up Development Environment
 
