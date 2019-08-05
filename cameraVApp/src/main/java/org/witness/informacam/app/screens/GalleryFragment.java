@@ -67,7 +67,7 @@ public class GalleryFragment extends Fragment implements
 
 	boolean isInMultiSelectMode;
 	ArrayList<IMedia> batch = null;
-	static List<IMedia> listMedia = null;
+	List<IMedia> listMedia = null;
 
 	private static final String LOG = Home.LOG;
 	private final InformaCam informaCam = InformaCam.getInstance();
@@ -191,15 +191,19 @@ public class GalleryFragment extends Fragment implements
 	
 	public static List<IMedia> getMediaList()
 	{
+
 		int sorting = Models.IMediaManifest.Sort.DATE_DESC;
 		if (mCurrentFiltering == 1) // Photos
 			sorting = Models.IMediaManifest.Sort.TYPE_PHOTO;
 		else if (mCurrentFiltering == 2)
 			sorting = Models.IMediaManifest.Sort.TYPE_VIDEO;
-		
-		listMedia = InformaCam.getInstance().mediaManifest.sortBy(sorting);
 
-		if (listMedia != null) {
+		List<IMedia> listSource = InformaCam.getInstance().mediaManifest.sortBy(sorting);
+		List<IMedia> listMedia = null;
+
+		if (listSource != null) {
+
+			listMedia = new ArrayList<IMedia>(listSource);
 
 			if (mCurrentFiltering == 3) // Tagged items
 			{
@@ -240,12 +244,13 @@ public class GalleryFragment extends Fragment implements
 				}
 			} else if (mCurrentFiltering == 6) // unencrypted items
 			{
+				if (listMedia != null) {
+					for (int i = listMedia.size() - 1; i >= 0; i--) {
 
-				for (int i = listMedia.size() - 1; i >= 0; i--) {
-
-					IMedia m = listMedia.get(i);
-					if (m.dcimEntry.fileAsset.source != Storage.Type.FILE_SYSTEM)
-						listMedia.remove(i);
+						IMedia m = listMedia.get(i);
+						if (m.dcimEntry.fileAsset.source != Storage.Type.FILE_SYSTEM)
+							listMedia.remove(i);
+					}
 				}
 			}
 		}
@@ -265,6 +270,8 @@ public class GalleryFragment extends Fragment implements
 			mediaDisplayGrid.setOnItemClickListener(this);
 		}
 
+		updateAdapters();
+
 		if((listMedia != null && listMedia.size() > 0) || this.mNumLoading > 0) {
 			if (noMedia != null)
 				noMedia.setVisibility(View.GONE);
@@ -273,7 +280,6 @@ public class GalleryFragment extends Fragment implements
 			if (noMedia != null)
 				noMedia.setVisibility(View.VISIBLE);
 		}
-		updateAdapters();		
 	}
 	
 	private void updateData()
@@ -282,7 +288,7 @@ public class GalleryFragment extends Fragment implements
 		{
 			@Override
 			public void run() {
-				getMediaList();
+				listMedia = getMediaList();
 				
 				if (a != null)
 					a.runOnUiThread(new Runnable()

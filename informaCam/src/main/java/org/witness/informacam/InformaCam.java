@@ -1,5 +1,6 @@
 package org.witness.informacam;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -7,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringBufferInputStream;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Vector;
 
+import org.apache.commons.io.IOUtils;
 import org.spongycastle.openpgp.PGPException;
 import org.witness.informacam.crypto.CredentialManager;
 import org.witness.informacam.crypto.KeyUtility;
@@ -267,22 +270,20 @@ public class InformaCam extends MultiDexApplication {
 		boolean runForeground = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("prefRunForeground", false);
 
 		try {
-			FileInputStream fis = this.openFileInput(IManifest.USER);			
-			if(fis.available() == 0) {
-				startCode = INIT;
-			} else {
-				setCredentialManager(new CredentialManager(this, !ioService.isMounted(),false,runForeground));
-				
-				byte[] ubytes = new byte[fis.available()];
-				fis.read(ubytes);
-				user.inflate(ubytes);
-				
-				if(credentialManager.getStatus() == Codes.Status.UNLOCKED) {
-					startCode = RUN;
-				} else if(credentialManager.getStatus() == Codes.Status.LOCKED) {
-					startCode = LOGIN;
-				}
-			}
+			BufferedInputStream fis = new BufferedInputStream(openFileInput(IManifest.USER));
+
+            setCredentialManager(new CredentialManager(this, !ioService.isMounted(),false,runForeground));
+
+            byte[] ubytes = new byte[fis.available()];
+            IOUtils.readFully(fis,ubytes);
+            user.inflate(ubytes);
+
+            if(credentialManager.getStatus() == Codes.Status.UNLOCKED) {
+                startCode = RUN;
+            } else if(credentialManager.getStatus() == Codes.Status.LOCKED) {
+                startCode = LOGIN;
+            }
+
 		} catch (FileNotFoundException e) {
 			Logger.d(LOG, "CONSIDERED HANDLED:\n" + e.toString());
 			startCode = INIT;
@@ -326,12 +327,18 @@ public class InformaCam extends MultiDexApplication {
 		sendBroadcast(intent);
 	}
 	
-	public void initData() throws PGPException, IllegalAccessException, InstantiationException, IOException {
-		
-		ISecretKey sKey =  (ISecretKey) getModel(new ISecretKey());
-		
-		if (sKey != null && sKey.secretKey != null)
-			signatureService.initKey(sKey);
+	public void initData() throws PGPException, IllegalAccessException, InstantiationException, IOException, GeneralSecurityException {
+
+		try {
+			ISecretKey sKey = (ISecretKey) getModel(new ISecretKey());
+
+			if (sKey != null && sKey.secretKey != null)
+				signatureService.initKey(sKey);
+		}
+		catch (PGPException e)
+		{
+			Logger.e("PGP key is null",e);
+		}
 
 		mediaManifest = (IMediaManifest) getModel(mediaManifest);
 
