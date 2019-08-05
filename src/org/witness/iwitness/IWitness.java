@@ -3,6 +3,9 @@ package org.witness.iwitness;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import net.hockeyapp.android.CrashManager;
+import net.hockeyapp.android.UpdateManager;
+
 import org.witness.informacam.storage.FormUtility;
 import org.witness.informacam.ui.CameraActivity;
 import org.witness.informacam.InformaCam;
@@ -50,6 +53,9 @@ public class IWitness extends Activity implements InformaCamStatusListener {
 	
 	InformaCam informaCam;
 	
+
+	private final static String HOCKEY_APP_ID = "819d2172183272c9d84cd3a4dbd9296b";
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -87,6 +93,8 @@ public class IWitness extends Activity implements InformaCamStatusListener {
 			}
 		} catch(NullPointerException e) {}
 		
+		checkForUpdates(); //hockeyapp
+		
 	}
 	
 	@Override
@@ -112,6 +120,9 @@ public class IWitness extends Activity implements InformaCamStatusListener {
 		} catch(NullPointerException e) {
 			Log.e(LOG, "informacam has not started again yet");
 		}
+		
+
+		checkForUpdates(); //hockeyapp
 	}
 	
 	@Override
@@ -231,4 +242,13 @@ public class IWitness extends Activity implements InformaCamStatusListener {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	private void checkForCrashes() {
+	   CrashManager.register(this, HOCKEY_APP_ID);
+	 }
+
+	 private void checkForUpdates() {
+	   // Remove this for store builds!
+	   UpdateManager.register(this, HOCKEY_APP_ID);
+	 }
 }
