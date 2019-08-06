@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25'
 
     defaultConfig {
         applicationId "org.witness.informacam.app"
@@ -41,10 +40,10 @@ android {
 
 
 dependencies {
-    compile project(':informaCam')
-    compile 'net.hockeyapp.android:HockeySDK:3.5.0'
-    compile 'com.github.PhilJay:MPAndroidChart:v2.1.3'
-    compile 'com.android.support:multidex:1.0.1'
+    implementation project(':informaCam')
+    implementation 'net.hockeyapp.android:HockeySDK:3.5.0'
+    implementation 'com.github.PhilJay:MPAndroidChart:v2.1.3'
+    implementation 'com.android.support:multidex:1.0.3'
 }
 
 

@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25'
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 25
@@ -21,13 +20,13 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:25.2.0'
-    compile 'com.github.japgolly.android:svg-android:2.0.6'
-    compile 'info.guardianproject.cacheword:cachewordlib:0.1.1'
-    compile 'info.guardianproject.iocipher:IOCipherStandalone:0.3'
-    compile files('libs/jcodec.jar')
-    compile 'com.madgag.spongycastle:core:1.50.0.0'
-    compile 'com.madgag.spongycastle:pg:1.50.0.0'
-    compile 'com.madgag.spongycastle:prov:1.50.0.0'
-    compile 'com.madgag.spongycastle:pkix:1.50.0.0'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.github.japgolly.android:svg-android:2.0.6'
+    implementation 'info.guardianproject.cacheword:cachewordlib:0.1.1'
+    implementation 'info.guardianproject.iocipher:IOCipherStandalone:0.3'
+    implementation files('libs/jcodec.jar')
+    implementation 'com.madgag.spongycastle:core:1.58.0.0'
+    implementation 'com.madgag.spongycastle:pg:1.54.0.0'
+    implementation 'com.madgag.spongycastle:prov:1.58.0.0'
+    implementation 'com.madgag.spongycastle:pkix:1.54.0.0'
 }

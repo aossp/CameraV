@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25"
 
     defaultConfig {
         minSdkVersion 14
@@ -19,8 +18,8 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.2.0'
-    compile files('libs/nanohttpd-2.1.0.jar')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.13-beta-3'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation files('libs/nanohttpd-2.1.0.jar')
 }
